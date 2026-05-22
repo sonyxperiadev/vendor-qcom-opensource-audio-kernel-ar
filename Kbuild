@@ -2,14 +2,19 @@ ifeq ($(AUDIO_ROOT),)
 AUDIO_ROOT := $(srctree)/techpack/audio
 endif
 
-ifeq ($(CONFIG_ARCH_PARROT), y)
-include $(AUDIO_ROOT)/config/parrotauto.conf
-LINUXINCLUDE += -include $(AUDIO_ROOT)/config/parrotautoconf.h
-endif
-
 ifeq ($(CONFIG_ARCH_WAIPIO), y)
 include $(AUDIO_ROOT)/config/waipioauto.conf
 LINUXINCLUDE += -include $(AUDIO_ROOT)/config/waipioautoconf.h
+endif
+
+ifeq ($(CONFIG_ARCH_KALAMA), y)
+include $(AUDIO_ROOT)/config/kalamaauto.conf
+LINUXINCLUDE += -include $(AUDIO_ROOT)/config/kalamaautoconf.h
+endif
+
+ifeq ($(CONFIG_ARCH_PARROT), y)
+include $(AUDIO_ROOT)/config/parrotauto.conf
+LINUXINCLUDE += -include $(AUDIO_ROOT)/config/parrotautoconf.h
 endif
 
 LINUXINCLUDE += \
