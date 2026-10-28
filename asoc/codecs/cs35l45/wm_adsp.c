@@ -739,7 +739,9 @@ static int wm_adsp_request_firmware_file(struct wm_adsp *dsp,
 					 const char *filetype)
 {
 	struct cs_dsp *cs_dsp = &dsp->cs_dsp;
+#if !IS_ENABLED(CONFIG_ARCH_SONY_YODO)
 	char *s, c;
+#endif
 	int ret = 0;
 
 	if (system_name && asoc_component_prefix)
@@ -757,6 +759,7 @@ static int wm_adsp_request_firmware_file(struct wm_adsp *dsp,
 	if (*filename == NULL)
 		return -ENOMEM;
 
+#if !IS_ENABLED(CONFIG_ARCH_SONY_YODO)
 	/*
 	 * Make sure that filename is lower-case and any non alpha-numeric
 	 * characters except full stop and forward slash are replaced with
@@ -771,6 +774,7 @@ static int wm_adsp_request_firmware_file(struct wm_adsp *dsp,
 			*s = '-';
 		s++;
 	}
+#endif
 
 	ret = firmware_request_nowarn(firmware, *filename, cs_dsp->dev);
 	if (ret != 0) {
